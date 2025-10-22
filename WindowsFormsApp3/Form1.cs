@@ -46,9 +46,6 @@ namespace WindowsFormsApp3
                 item.ForeColor = Color.Black;
                 item.Font = new Font(item.Font, FontStyle.Regular);
             }
-
-            lstTodos.Invalidate();
-            lstTodos.Update();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -70,6 +67,7 @@ namespace WindowsFormsApp3
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            // lstTodos 목록에서 아무 항목에 선택하지 않았을 경우
             if (lstTodos.SelectedItems.Count == 0)
             {
                 MessageBox.Show("수정할 항목을 선택하세요!");
@@ -94,7 +92,7 @@ namespace WindowsFormsApp3
             // lstTodos라는 목록에서 체크(선택)된 항목의 개수가 0보다 클 경우
             if (lstTodos.CheckedItems.Count > 0)
             {
-                // 
+                // lstTodos 리스트에서 체크된 항목의 개수만큼 반복하면서, 마지막 항목부터 첫 번째 항목까지 하나씩 제거함
                 for (int i = lstTodos.CheckedItems.Count - 1; i >= 0; i--)
                     lstTodos.Items.Remove(lstTodos.CheckedItems[i]);
              }
@@ -108,6 +106,8 @@ namespace WindowsFormsApp3
         {
             // 문자열을 저장하는 리스트(List<string> lines)를 새로 만드는 것(new List<string>())을 의미함
             List<string> lines = new List<string>();
+
+            // lstTodos 컨트롤의 항목들을 순회하면서 각 항목의 체크 여부와 텍스트를 문자열로 만들어 lines 리스트에 추가하는 작업을 수행함
             foreach (ListViewItem item in lstTodos.Items)
             {
                 lines.Add($"{item.Checked} | {item.Text}");
@@ -134,6 +134,7 @@ namespace WindowsFormsApp3
             try
             {
                 lstTodos.Items.Clear();
+                // ReadAllLines 메서드는 텍스트 파일을 읽고 파일의 모든 줄을 문자열 배열로 읽어 들인 다음 파일을 닫음.
                 var lines = File.ReadAllLines(filePath, Encoding.UTF8);
 
                 foreach (var line in lines)
@@ -143,6 +144,7 @@ namespace WindowsFormsApp3
                     {
                         // parts[0](앞뒤 공백 제거)의 값을 불(bool)로 변환(TryParse)하려 시도하고, 변환이 성공했으며 값이 true일 때만 isChecked를 true로 설정
                         bool isChecked = bool.TryParse(parts[0].Trim(), out bool result) && result;
+                        // parts[1]에서 앞뒤 공백을 모두 제거한 후, 그 결과를 text라는 새로운 문자열 변수에 저장함.
                         string text = parts[1].Trim();
 
                         ListViewItem item = new ListViewItem(text);
