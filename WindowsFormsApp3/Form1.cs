@@ -92,7 +92,7 @@ namespace WindowsFormsApp3
             // lstTodos라는 목록에서 체크(선택)된 항목의 개수가 0보다 클 경우
             if (lstTodos.CheckedItems.Count > 0)
             {
-                // lstTodos 리스트에서 체크된 항목의 개수만큼 반복하면서, 마지막 항목부터 첫 번째 항목까지 하나씩 제거함
+                //
                 for (int i = lstTodos.CheckedItems.Count - 1; i >= 0; i--)
                     lstTodos.Items.Remove(lstTodos.CheckedItems[i]);
              }
