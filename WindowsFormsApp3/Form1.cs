@@ -92,10 +92,6 @@ namespace WindowsFormsApp3
                 for (int i = lstTodos.CheckedItems.Count - 1; i >= 0; i--)
                     lstTodos.Items.Remove(lstTodos.CheckedItems[i]);
              }
-             else if (lstTodos.SelectedItems.Count > 0)
-             {
-                lstTodos.Items.Remove(lstTodos.SelectedItems[0]);
-             }
              else
              {
                 MessageBox.Show("삭제할 항목을 선택하거나 체크하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
