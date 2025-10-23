@@ -56,17 +56,20 @@ namespace WindowsFormsApp4
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // 사용자가 모든 답을 맞혔는지 확인합니다. 
             if (CheckTheAnswer())
             {
                 timer1.Stop();
                 MessageBox.Show("모든 답을 맞히셨어요!", "축하합니다!");
                 startButton.Enabled = true;
             }
+            // 남은 시간이 0보다 크면 1초를 뺍니다.
             else if (timeLeft > 0)
             {
                 timeLeft = timeLeft - 1;
                 timeLabel.Text = timeLeft + " 초";
             }
+            // 남은 시간이 0이면 타이머를 중지하고 사용자가 시간을 다 썼음을 알립니다. 
             else
             {
                 timer1.Stop();
@@ -90,15 +93,15 @@ namespace WindowsFormsApp4
             addend2 = randomizer.Next(51);
 
 
-            // 임의로 생성된 두 숫자를 문자열로 변환하여 레이블 컨트롤에 표시할 수 있도록 합니다.
+            // 덧셈 문제의 레이블에 해당하는 숫자를 표시합니다. 
             plusLeftLabel.Text = addend1.ToString();
             plusRightLabel.Text = addend2.ToString();
 
-            // 'sum'은 NumericUpDown 컨트롤의 이름입니다.
-            // 이 단계에서는 값을 추가하기 전에 값이 0인지 확인합니다.
+            // sum 컨트롤을 0으로 재설정합니다. 
             sum.Value = 0;
 
             // 뺄셈 문제를 채웁니다.
+            // Random.Next 메서드를 사용하여 뺄셈 문제에 대한 두 개의 난수를 생성합니다.
             minuend = randomizer.Next(1, 101);
             subtrahend = randomizer.Next(1, minuend);
             minusLeftLabel.Text = minuend.ToString();
@@ -106,6 +109,7 @@ namespace WindowsFormsApp4
             difference.Value = 0;
 
             // 곱셈 문제를 채웁니다.
+            // 곱셈 문제에 대한 두 개의 난수를 생성합니다.
             multiplicand = randomizer.Next(2, 11);
             multiplier = randomizer.Next(2, 11);
             timesLeftLabel.Text = multiplicand.ToString();
@@ -113,6 +117,7 @@ namespace WindowsFormsApp4
             product.Value = 0; ;
 
             // 나눗셈 문제를 채웁니다.
+            // 나눗셈 문제에 대한 두 개의 난수를 생성합니다.
             divisor = randomizer.Next(2, 11);
             int temporaryQuotient = randomizer.Next(2, 11);
             dividend = divisor * temporaryQuotient;
@@ -126,13 +131,16 @@ namespace WindowsFormsApp4
         }
         private void startButton_Click(object sender, EventArgs e)
         {
+            // 퀴즈를 시작합니다.
             StartTheQuiz();
+            // startButton을 비활성화합니다. 
             startButton.Enabled = false;
             
         }
 
         private void answer_Enter(object sender, EventArgs e)
         {
+            // NumericUpDown 컨트롤을 가져옵니다. 
             NumericUpDown answerBox = sender as NumericUpDown;
 
             if (answerBox != null)
