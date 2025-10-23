@@ -98,21 +98,21 @@ namespace WindowsFormsApp4
             // 이 단계에서는 값을 추가하기 전에 값이 0인지 확인합니다.
             sum.Value = 0;
 
-            // 뺄셈 문제를 채우십시오.
+            // 뺄셈 문제를 채웁니다.
             minuend = randomizer.Next(1, 101);
             subtrahend = randomizer.Next(1, minuend);
             minusLeftLabel.Text = minuend.ToString();
             minusRightLabel.Text = subtrahend.ToString();
             difference.Value = 0;
 
-            // 곱셈 문제를 채우십시오.
+            // 곱셈 문제를 채웁니다.
             multiplicand = randomizer.Next(2, 11);
             multiplier = randomizer.Next(2, 11);
             timesLeftLabel.Text = multiplicand.ToString();
             timesRightLabel.Text = multiplier.ToString();
             product.Value = 0; ;
 
-            // 나눗셈 문제를 채우십시오.
+            // 나눗셈 문제를 채웁니다.
             divisor = randomizer.Next(2, 11);
             int temporaryQuotient = randomizer.Next(2, 11);
             dividend = divisor * temporaryQuotient;
@@ -137,7 +137,7 @@ namespace WindowsFormsApp4
 
             if (answerBox != null)
             {
-                // NumericUpDown 컨트롤에서 전체 답을 선택하세요.
+                // NumericUpDown 컨트롤에서 전체 답을 합니다.
                 int lengthOfAnswer = answerBox.Value.ToString().Length;
                 answerBox.Select(0, lengthOfAnswer);
             }
