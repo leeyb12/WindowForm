@@ -36,6 +36,7 @@ namespace WindowsFormsApp3
         {
             var item = e.Item;
 
+            // 체크박스를 클릭하게 되면 글자 색이 회색으로 변하고 중간에 줄이 있는 텍스트가 생성됨.
             if (item.Checked)
             {
                 item.ForeColor = Color.Gray;
@@ -92,7 +93,7 @@ namespace WindowsFormsApp3
             // lstTodos라는 목록에서 체크(선택)된 항목의 개수가 0보다 클 경우
             if (lstTodos.CheckedItems.Count > 0)
             {
-                //
+                // 마지막으로 체크한 항목에서 첫 번째 항목으로 뒤로 루프함
                 for (int i = lstTodos.CheckedItems.Count - 1; i >= 0; i--)
                     lstTodos.Items.Remove(lstTodos.CheckedItems[i]);
              }
@@ -107,7 +108,7 @@ namespace WindowsFormsApp3
             // 문자열을 저장하는 리스트(List<string> lines)를 새로 만드는 것(new List<string>())을 의미함
             List<string> lines = new List<string>();
 
-            // lstTodos 컨트롤의 항목들을 순회하면서 각 항목의 체크 여부와 텍스트를 문자열로 만들어 lines 리스트에 추가하는 작업을 수행함
+            // lstTodo라는 liveview 컨트롤의 모든 항목을 반복하고, ListViewItem 개체에 있는 항목에 컨트롤의 단일 행에 대한 모든 정보를 포함함.
             foreach (ListViewItem item in lstTodos.Items)
             {
                 lines.Add($"{item.Checked} | {item.Text}");
@@ -149,9 +150,10 @@ namespace WindowsFormsApp3
 
                         ListViewItem item = new ListViewItem(text);
                         item.Checked = isChecked;
-
+                    
                         if (isChecked)
                         {
+                            // ForeColor 속성은 웹 서버 컨트롤의 전경색(텍스트 색)을 가져오거나 설정합니다.
                             item.ForeColor = Color.Gray;
                             item.Font = new Font(lstTodos.Font, FontStyle.Strikeout);
                         }
