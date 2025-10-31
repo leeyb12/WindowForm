@@ -44,16 +44,33 @@ namespace WindowsFormsApp4
         ///</summary>
         ///<returns>답이 맞으면 True, 그렇지 않으면 false입니다.</returns>
         private bool CheckTheAnswer()
+        // 모든 답이 올바른지 확인합니다. 
+        // 각 문제에 대해 덧셈, 뺄셈, 곱셈 및 나눗셈을 확인합니다. 
         {
-            if ((addend1 + addend2 == sum.Value)
-                && (minuend - subtrahend == difference.Value)
-                && (multiplicand * multiplier == product.Value)
-                && (dividend / divisor == quotient.Value))
+            if ((addend1 + addend2 == sum.Value))
+            {
                 return true;
+            }
+            else if ((minuend - subtrahend == difference.Value))
+            {
+                return true;
+            }
+            else if ((multiplicand * multiplier == product.Value))
+            {
+                return true;
+            }
+            else if ((dividend / divisor == quotient.Value))
+            {
+                return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
+       
+        // 타이머가 1초마다 tick됩니다. 
         private void timer1_Tick(object sender, EventArgs e)
         {
             // 사용자가 모든 답을 맞혔는지 확인합니다. 

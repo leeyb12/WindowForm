@@ -18,8 +18,10 @@ namespace WindowsFormsApp3
             InitializeComponent();
         }
 
+        // Form1_Load 이벤트 핸들러는 폼이 로드될 때 실행되는 메서드입니다.
         private void Form1_Load(object sender, EventArgs e)
         {
+            // lstTodos라는 ListView 컨트롤의 속성을 설정
             lstTodos.View = View.Details;
             lstTodos.CheckBoxes = true;
             lstTodos.FullRowSelect = true;
@@ -28,6 +30,7 @@ namespace WindowsFormsApp3
             lstTodos.Columns.Clear();
             lstTodos.Columns.Add("할 일", 400);
 
+            // ItemChecked 이벤트는 항목의 체크 상태가 변경될 때 발생
             lstTodos.ItemChecked += LstTodos_ItemChecked;
             lstTodos.SelectedIndexChanged += LstTodos_SelectedIndexChanged;
         }
@@ -60,6 +63,7 @@ namespace WindowsFormsApp3
                 return;
             }
 
+            // ListViewItem 클래스는 ListView 컨트롤의 항목을 나타내며, 이 항목은 텍스트와 이미지 및 기타 속성을 포함할 수 있음
             ListViewItem item = new ListViewItem(text);
             item.Checked = false;
             lstTodos.Items.Add(item);
@@ -95,12 +99,14 @@ namespace WindowsFormsApp3
             {
                 // 마지막으로 체크한 항목에서 첫 번째 항목으로 뒤로 루프함
                 for (int i = lstTodos.CheckedItems.Count - 1; i >= 0; i--)
+                {
                     lstTodos.Items.Remove(lstTodos.CheckedItems[i]);
-             }
-             else
-             {
+                }
+            }
+            else
+            {
                 MessageBox.Show("삭제할 항목을 선택하거나 체크하세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
-             }
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -124,8 +130,7 @@ namespace WindowsFormsApp3
         }
         private void LoadTasks()
         {
-            // 지정된 파일이 없을 경우
-            // Exists 메서드(File.Exists)는 지정된 파일이 있는지 여부를 확인
+            // 지정된 경로(filePath)에 파일이 존재하지 않을 경우
             if (!File.Exists(filePath))
             {
                 MessageBox.Show("저장된 파일이 없습니다.");
@@ -135,7 +140,7 @@ namespace WindowsFormsApp3
             try
             {
                 lstTodos.Items.Clear();
-                // ReadAllLines 메서드는 텍스트 파일을 읽고 파일의 모든 줄을 문자열 배열로 읽어 들인 다음 파일을 닫음.
+                // 지정된 경로(filePath)에 있는 모든 줄을 UTF-8 인코딩(Encoding.UTF8)으로 읽어와서 문자열 배열(lines)에 저장
                 var lines = File.ReadAllLines(filePath, Encoding.UTF8);
 
                 foreach (var line in lines)
@@ -143,17 +148,19 @@ namespace WindowsFormsApp3
                     var parts = line.Split('|');
                     if (parts.Length == 2)
                     {
-                        // parts[0](앞뒤 공백 제거)의 값을 불(bool)로 변환(TryParse)하려 시도하고, 변환이 성공했으며 값이 true일 때만 isChecked를 true로 설정
+                        // parts[0] (앞뒤 공백 제거)의 값을 불리언 변수 isChecked에 저장
                         bool isChecked = bool.TryParse(parts[0].Trim(), out bool result) && result;
-                        // parts[1]에서 앞뒤 공백을 모두 제거한 후, 그 결과를 text라는 새로운 문자열 변수에 저장함.
+
+                        // parts[1] (앞뒤 공백 제거)의 값을 text라는 문자열 변수에 저장
                         string text = parts[1].Trim();
 
                         ListViewItem item = new ListViewItem(text);
                         item.Checked = isChecked;
                     
+                        // 체크된 항목일 경우
+                        // ForeColor 속성은 웹 서버 컨트롤의 전경색(텍스트 색)을 가져오거나 설정합니다.
                         if (isChecked)
                         {
-                            // ForeColor 속성은 웹 서버 컨트롤의 전경색(텍스트 색)을 가져오거나 설정합니다.
                             item.ForeColor = Color.Gray;
                             item.Font = new Font(lstTodos.Font, FontStyle.Strikeout);
                         }
@@ -172,8 +179,10 @@ namespace WindowsFormsApp3
         }
         private void LstTodos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // lstTodos 목록에서 하나 이상의 항목이 선택된 경우
            if (lstTodos.SelectedItems.Count > 0)
             {
+                // 선택된 항목의 텍스트를 txtTodo 텍스트 상자에 표시
                 txtTodo.Text = lstTodos.SelectedItems[0].Text;
             }
         }
