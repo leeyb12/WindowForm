@@ -75,6 +75,7 @@ namespace WindowsFormsApp1
 
                 MessageBox.Show($"복사 완료!\n{destinationPath}", "성공", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show($"복사 중 오류 발생:\n{ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
