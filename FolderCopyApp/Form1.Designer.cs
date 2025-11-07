@@ -33,6 +33,7 @@
             this.comboBoxDest = new System.Windows.Forms.ComboBox();
             this.btnSelectDest = new System.Windows.Forms.Button();
             this.btnCopy = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // textBoxSource
@@ -72,7 +73,7 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(276, 341);
+            this.btnCopy.Location = new System.Drawing.Point(500, 224);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(247, 78);
             this.btnCopy.TabIndex = 4;
@@ -80,11 +81,20 @@
             this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(48, 342);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(699, 96);
+            this.richTextBox1.TabIndex = 5;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.btnSelectDest);
             this.Controls.Add(this.comboBoxDest);
@@ -105,6 +115,7 @@
         private System.Windows.Forms.ComboBox comboBoxDest;
         private System.Windows.Forms.Button btnSelectDest;
         private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
