@@ -32,6 +32,8 @@ namespace FileAnalyzerApp
         public Form1()
         {
             InitializeComponent();
+
+            // 파일 경로 콤보박수에 사용자가 직접 경로를 입력할 수 있도록 허용하고, 동시에 준비된 경로 목록도 제공한다
             cmbFilePath.DropDownStyle = ComboBoxStyle.DropDown;
         }
 
@@ -66,7 +68,11 @@ namespace FileAnalyzerApp
                 try
                 {
                     // 텍스트 파일 읽기 (비동기 I/O, 리소스 자동 해제)
+
+                    // 지정된 경로의 파일을 읽기 전용으로 열고, 이 파일에 대한 스트림 기반의 접근을 설정합니다.
                     using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+
+                    // 이전 단계에서 생성된 바이트 스트림(fs)을 사용하여 파일을 텍스트로 읽기 위한 준비를 하며, 이때 시스템의 기본(ANSI) 인코딩을 사용하도록 지정합니다.
                     using (StreamReader reader = new StreamReader(fs, Encoding.Default))
                     {
                         string line;
@@ -170,8 +176,12 @@ namespace FileAnalyzerApp
             double value = 0.0;
             if (chunks.Length > 2)
             {
+                // chunks[2]의 내용을 문화권에 관계없이 double 값으로 변환하려고 시도합니다.
+                // 이 시도가 성공하면 value 변수에 결과가 저장되고 true가 반환되며, 실패하면 false가 반환됩니다. 
                 double.TryParse(chunks[2].Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out value);
             }
+
+            // 특정 변수의 값을 다른 변수의 속성에 할당하는 작업을 수행
             result.Value = value;
 
             return true;
@@ -183,6 +193,7 @@ namespace FileAnalyzerApp
         /// </summary>
         private async Task SaveBatchToMariaDBAsync(List<FileData> dataList)
         {
+            // 함수나 메서드의 시작 부분에서 입력 데이터의 유효성을 검사하는 데 사용되는 조건문
             if (dataList == null || dataList.Count == 0) return;
 
             // INSERT 쿼리를 생성 (VALUES (@p1), (@p2), ...)
@@ -213,11 +224,19 @@ namespace FileAnalyzerApp
 
             try
             {
+                // MySQL 데이터베이스에 안전하고 신뢰할 수 있는 방식으로 연결하는 과정을 시작합니다.
+                // using 블록 내부의 코드는 이 connection 객체를 사용하여 쿼리를 실행하거나 데이터베이스 작업을 수행할 수 있으며,
+                // 블록이 끝나면 연결은 자동으로 종료됩니다.
                 using (var connection = new MySqlConnection(ConnectionString))
                 {
                     await connection.OpenAsync();
+
+                    // 데이터베이스 연결(connection)에서 비동기적으로 새 데이터베이스 트랜잭션을 시작합니다.
                     transaction = await connection.BeginTransactionAsync();
 
+                    // 특정 SQL 쿼리를 하나의 트랜잭션 단위로 실행되도록 설정합니다. 
+                    // 여러 데이터베이스 작업이 모두 성공해야만 영구적으로 커밋되고, 하나라도 실패하면 전체가 롤백되도록 보장하여 
+                    // 데이터 무결성을 유지하는 데 필수적입니다. 
                     using (var command = new MySqlCommand(queryBuilder.ToString(), connection, transaction))
                     {
                         command.Parameters.AddRange(parameters.ToArray());

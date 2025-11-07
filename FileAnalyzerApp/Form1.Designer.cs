@@ -28,19 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbFilePath = new System.Windows.Forms.ComboBox();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.cmbFilePath = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // cmbFilePath
-            // 
-            this.cmbFilePath.FormattingEnabled = true;
-            this.cmbFilePath.Location = new System.Drawing.Point(33, 39);
-            this.cmbFilePath.Name = "cmbFilePath";
-            this.cmbFilePath.Size = new System.Drawing.Size(548, 23);
-            this.cmbFilePath.TabIndex = 0;
             // 
             // btnOpenFile
             // 
@@ -67,15 +59,23 @@
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
+            // cmbFilePath
+            // 
+            this.cmbFilePath.FormattingEnabled = true;
+            this.cmbFilePath.Location = new System.Drawing.Point(33, 39);
+            this.cmbFilePath.Name = "cmbFilePath";
+            this.cmbFilePath.Size = new System.Drawing.Size(542, 23);
+            this.cmbFilePath.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbFilePath);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnOpenFile);
-            this.Controls.Add(this.cmbFilePath);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -83,11 +83,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbFilePath;
         private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ComboBox cmbFilePath;
     }
 }
 
