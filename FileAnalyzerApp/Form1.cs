@@ -61,9 +61,9 @@ namespace FileAnalyzerApp
                 // UI에 출력할 텍스트를 모으는 빌더 (UI 부하 감소)
                 StringBuilder displayContent = new StringBuilder();
 
-                long fileSize = new FileInfo(path).Length;
-                long totalBytesRead = 0;
-                bool isParsingSuccessful = true;
+                long fileSize = new FileInfo(path).Length;  // 지정된 위치에 있는 파일의 크기를 계산하고 path이를 .long이라는 이름의 정수로 저장
+                long totalBytesRead = 0;  // long 호출된 정수 변수를 totalBytesRead()으로 초기화
+                bool isParsingSuccessful = true;  // to 라는 bool 변수를 초기화
 
                 try
                 {
@@ -76,6 +76,8 @@ namespace FileAnalyzerApp
                     using (StreamReader reader = new StreamReader(fs, Encoding.Default))
                     {
                         string line;
+
+                        // 비동기적으로 텍스트 파일을 읽거나 스트림에서 한 줄씩 데이터를 가져오는 데 사용
                         while ((line = await reader.ReadLineAsync()) != null)
                         {
                             if (string.IsNullOrWhiteSpace(line)) continue;
@@ -124,6 +126,8 @@ namespace FileAnalyzerApp
                         MessageBox.Show("파일에서 유효한 데이터를 찾을 수 없어 DB에 저장하지 않았습니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
+                    // !isParsingSuccessful:프로그래밍 맥락에서 사용되는 메서드 또는 속성으로, 파싱 작업이 성공했는지 여부를 true 또는 false로 나타나고,
+                    // 데이터 파싱, 시간 파싱 또는 특정 명령의 실행 여부를 확인하는 데 사용
                     if (!isParsingSuccessful)
                     {
                         MessageBox.Show("일부 라인 파싱에 실패했지만, 유효한 데이터는 DB에 저장했습니다.", "파싱 경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -144,7 +148,7 @@ namespace FileAnalyzerApp
         {
             result = new FileData();
 
-            // 1. 큰따옴표 제거 및 쉼표로 분할
+            // 큰따옴표 제거 및 쉼표로 분할
             string cleanedLine = dataLine.Replace("\"", "").Trim();
             // 정규식을 사용해 쉼표 주변의 공백을 제거하여 분할 안정화
             cleanedLine = Regex.Replace(cleanedLine, @"\s*,\s*", ",");
@@ -239,19 +243,28 @@ namespace FileAnalyzerApp
                     // 데이터 무결성을 유지하는 데 필수적입니다. 
                     using (var command = new MySqlCommand(queryBuilder.ToString(), connection, transaction))
                     {
+
+                        // 데이터베이스와 상호 작용할 때, .NET 애플리케이션에서 매개변수 컬렉션을 SqlCommand 데이터베이스 명령 객체나
+                        // 유사한 객체에 추가하는 데 사용
                         command.Parameters.AddRange(parameters.ToArray());
 
                         // 비동기적으로 배치 명령 실행
+
+                        // ExecuteNonQueryAsync() 메서드는 데이터베이스의 상태를 변경하지만 데이터를 반환하지 않는 명령을 실행하며, 실행 결과로
+                        // 영향을 받은 행의 수를 반환합니다.
                         int rowsAffected = await command.ExecuteNonQueryAsync();
 
                         if (rowsAffected != dataList.Count)
                         {
+                            // 데이터베이스 트랜잭션을 비동기적으로 롤백
                             await transaction.RollbackAsync();
                             throw new InvalidOperationException($"DB에 저장된 행 수 불일치. 시도: {dataList.Count}, 실제: {rowsAffected}");
                         }
                     }
-
+                    
                     await transaction.CommitAsync();
+                    // 비동기 프로그래밍에서, 일반적으로 데이터베이스 컨텍스트 내에서 트랜잭션을 완료하고 해당 트랜잭션 내에서 변경된 모든 내용을 
+                    // 데이터베이스에 유지하는 데 사용
                 }
             }
             catch (Exception ex)
