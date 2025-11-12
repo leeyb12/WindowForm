@@ -199,7 +199,11 @@ private void LoadTasks()
     }
     catch (Exception ex)
     {
-        MessageBox.Show("불러오기 중 오류:" + {ex.Message});
+        MessageBox.Show("불러오기 중 오류:" + ex.Message);
     }
 }
 ```
+설명:
+- 파일이 없으면 메시지 출력
+- 파일을 한 줄씩 읽어 항목 복원
+- 체크 여부에 따라 글자 색상과 폰트 변경
