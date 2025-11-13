@@ -1,6 +1,6 @@
 # To-Do List (C# WinForms)
 
-이 프로젝트는 **C# Windows Forms**로 제작한 간단한 **할 일(To-Do List)** 관리 프로그램입니다. 
+이 프로젝트는 **C# Windows Forms**로 제작한 간단한 **할 일(To-Do List)** 관리 프로그램입니다. <br>
 사용자는 할 일을 추가, 수정, 삭제하고, 파일에 저장 및 불러올 수 있습니다. 
 
 ---
