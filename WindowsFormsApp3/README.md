@@ -207,3 +207,28 @@ private void LoadTasks()
 - 파일이 없으면 메시지 출력
 - 파일을 한 줄씩 읽어 항목 복원
 - 체크 여부에 따라 글자 색상과 폰트 변경
+
+### 8. 선택 항목 표시 (`LstTodos_SelectedIndexChanged`) 
+
+```csharp
+private void LstTodos_SelectedIndexChanged(object sender, EventArgs e){
+    if (lstTodos.SelectedItems.Count > 0)
+    {
+        txtTodo.Text = lstTodos.SelectedItems[0].Text;
+    }
+}
+```
+설명: 
+- 선택된 항목의 텍스트를 입력창에 표시
+- 수정 시 기존 내용을 쉽게 변경할 수 있음
+
+## 사용된 주요 문법
+| 문법 | 설명 |
+| ---------- | ---------- |
+| `class`, `Form` | 폼 기반 클래스 구조 |
+| `event` | 버튼 클릭, 체크 등 이벤트 기반 실행 |
+| `ListView` | 할 일 목록을 표시하는 UI 컨트롤 |
+| `File.ReadAllLines`, `WriteAllLines` | 파일 입출력 기능 |
+| `foreach`, `if`, `for` | 제어문을 통한 반복과 조건 분기 |
+| `MessageBox.Show` | 사용자에게 알림 메시지 표시 |
+| `bool.TryParse` | 문자열을 안전하게 불리언으로 변환 |
